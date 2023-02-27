@@ -4,10 +4,13 @@ import { Room } from '../models/room.interface';
 
 @Pipe({
   name: 'filterRoom',
+  pure: false,
 })
 export class FilterRoomPipe implements PipeTransform {
   transform(value: any[], filters: Filter): any[] {
-    value = this.filterArray(value, filters);
+    if (!this.allValuesNull(filters)) {
+      value = this.filterArray(value, filters);
+    }
     return value;
   }
 
@@ -38,14 +41,23 @@ export class FilterRoomPipe implements PipeTransform {
     });
   }
 
-  private checkMinValues(value: number, min: number) {
+  private allValuesNull(filters: Filter): boolean {
+    return (
+      filters.max_capacity === null &&
+      filters.min_capacity === null &&
+      filters.min_occupation === null &&
+      filters.max_occupation === null
+    );
+  }
+
+  private checkMinValues(value: number, min: number | null) {
     if (min) {
       return value >= min;
     }
     return true;
   }
 
-  private checkMaxValues(value: number, max: number) {
+  private checkMaxValues(value: number, max: number | null) {
     if (max) {
       return value <= max;
     }

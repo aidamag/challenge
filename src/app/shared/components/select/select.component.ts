@@ -59,7 +59,7 @@ export class SelectComponent implements OnInit, OnChanges {
 
   selectOption(event: any) {
     const option = this.value.find(
-      (el) => el?.value.toString() === event.target.value
+      (el) => el?.value === parseInt(event.target.value)
     );
     if (option) this.selectedOption = option;
     this.handleMenu();

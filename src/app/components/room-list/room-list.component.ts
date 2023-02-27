@@ -22,10 +22,10 @@ export class RoomListComponent implements OnInit {
   isDialogOpen: boolean = false;
   isFilterOpen: boolean = false;
   filters: Filter = {
-    min_capacity: NaN,
-    max_capacity: NaN,
-    min_occupation: NaN,
-    max_occupation: NaN,
+    min_capacity: null,
+    max_capacity: null,
+    min_occupation: null,
+    max_occupation: null,
   };
 
   constructor(private service: FloorService) {
@@ -48,14 +48,14 @@ export class RoomListComponent implements OnInit {
   ngOnInit(): void {}
 
   onClickOption(floor: string): void {
-    const selected = this.setSelectedFloor(floor);
-    if (selected) this.floorSelected = selected;
+    const selected = this.setSelectedFloor(parseInt(floor));
+    if (selected) {
+      this.floorSelected = selected;
+    }
   }
 
-  setSelectedFloor(selected: string): Floor | undefined {
-    return this.allFloors.find(
-      (el) => el?.floor.toString() === selected.toString()
-    );
+  setSelectedFloor(selected: number): Floor | undefined {
+    return this.allFloors.find((el) => el?.floor === selected);
   }
 
   handleDialog(event: any): void {

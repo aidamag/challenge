@@ -83,7 +83,7 @@ export class RoomFilterComponent implements OnInit {
     this.errorMaxOccupation = '';
   }
 
-  private parseValue(value: string): number {
-    return !Number.isNaN(value) ? parseInt(value) : NaN;
+  private parseValue(value: string): number | null {
+    return value ? parseInt(value) : null;
   }
 }

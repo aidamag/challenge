@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Floor } from '../models/floor.interface';
 import { Room } from '../models/room.interface';
 
@@ -18,6 +18,7 @@ export class FloorService {
     this.getAllFloors();
   }
 
+  //Get all data from API
   getAllFloors(): void {
     this.http.get<Floor[]>(this.apiUrl).subscribe((response) => {
       this.setFloor(response);
@@ -25,14 +26,17 @@ export class FloorService {
     });
   }
 
-  get floors() {
+  //Get data as observable
+  get floors(): Observable<Floor[]> {
     return this.floorsSubject.asObservable();
   }
 
+  //Set new data to the actual data
   public setFloor(floors: Floor[]): void {
     this.floorsSubject.next(floors);
   }
 
+  //Update a room from given floor
   updateRoom(floor: number, room: Room): void {
     const indexFloor = this.floorsData.findIndex((obj) => obj.floor === floor);
     if (indexFloor >= 0) {
@@ -46,6 +50,7 @@ export class FloorService {
     }
   }
 
+  //Add a room to given floor
   addRoom(floor: number, room: Room): void {
     const index = this.floorsData.findIndex((obj) => obj.floor === floor);
     if (index >= 0) {
@@ -54,6 +59,7 @@ export class FloorService {
     }
   }
 
+  //Delete a room from given floor
   deleteRoom(floor: number, room: number): void {
     const indexFloor = this.floorsData.findIndex((obj) => obj.floor === floor);
     if (indexFloor >= 0) {
@@ -65,6 +71,7 @@ export class FloorService {
     }
   }
 
+  //Check if a room already exists in given floor
   existsRoom(floor: number, room: number): boolean {
     const f = this.floorsData.find((obj) => obj.floor === floor);
     if (f) {

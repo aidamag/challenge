@@ -1,27 +1,59 @@
 # Challenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
-
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Para arrancar este proyecto hay que ejecutar `npm run start` en la raíz.
+Una vez arrancado, navegar a `http://localhost:4200/`.
 
-## Code scaffolding
+## API
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+La API está mockeada en `https://apimocha.com/challenge-rooms/rooms`. Devuelve un JSON con dos plantas y sus respectivas salas.
 
-## Build
+## Decisiones
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Con la imagen recibida en el email, he identificado varios componentes reutilizables:
 
-## Running unit tests
+- Select
+- Text Input
+- Button
+- Card
+- Dialog (para añadir salas y el filtrado)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Las carpetas se dividen como se describen a continuación:
 
-## Running end-to-end tests
+- Carpeta `shared` para implementar estos componentes e utilizarlos en las diferentes vistas.
+- Carpeta `services` con un servicio para tratar la API con los datos de las plantas y las salas.
+- Carpeta `pipes` con un `pipe` para filtrar el listado de las plantas según capacidad y ocupación.
+- Carpeta `components` para las vistas de la aplicación.
+- Carpeta `models` que contiene los modelos de datos de la aplicación. Ya que en Angular se utilizan `types`, creé varios modelos de datos y poder utilizar esta ventaja de tipado. Los tipos principales son `Floor` y `Room`:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```
+Floor = {
+    floor: number; //número de la planta, utilizado como ID único.
+    rooms: Room[]; //listado de las salas de la planta
+}
 
-## Further help
+Room = {
+    room: number; //número de la sala, utilizado como ID único.
+    max_capacity: number; //capacidad máxima de la sala
+    occupation: number; //ocupación de la sala
+}
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Dentro de la carpeta `components` hay tres componentes:
+
+- `room-filter`: contiene el diálogo y el `form` para hacer el filtrado.
+- `room-form`: contiene el diálogo y el `form` para añadir salas a la planta seleccionada.
+- `room-list`: página principal que lista las salas según la planta seleccionada en el select.
+
+Recalcar que utilizo reactive forms para mejorar el rendimiento de los forms utilizados en la aplicación.
+
+Para controlar los datos de entrada de la aplicación, utilizo `Behaviour Subject` de `rxjs` ya que es una herramienta útil para controlar el estado actual y compartir los datos entre componentes.
+
+## Dificultades encontradas
+
+Me he encontrado con dos dificultades:
+
+1. `Card` component: He querido hacer todos los componentes lo más genéricos y reutilizables posibles (como el `button` o el `dialog`) para poder utilizarlos con las props correspondientes o introducir los children que sean necesarios con `ng-content`. En el caso de las `cards` no he podido hacer esto del todo.
+   Mi implementación ideal de las `cards` hubiera sido utilizando compound components (`card-title`, `card-content` y `card-action`). Sin embargo, ya que cada `card` tiene su propio `form` para modificar los datos de cada una, el código iba a quedar poco legible desde el componente de `room-list` (porque habría que controlar los `form` de cada `card` por separado). Por tanto, la implementación del `form` de modificación está en la propia `card`.
+2. Filtrado: He tenido varios problemas con el filtrado ya que Angular no detectaba ningún cambio cuando se modificaba la variable para el lista de las salas (el `pipe` en el `ngFor` no se ejecutaba cuando debía). Para solucionarlo, utilicé la propiedad `pure` en el decorador de `pipe` para que lo ejecute en cada ciclo de detección de cambios.
