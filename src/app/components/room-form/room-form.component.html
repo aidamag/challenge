@@ -1,0 +1,29 @@
+<dialog-custom
+  *ngIf="isDialogOpen"
+  label="Añadir sala"
+  (onClose)="closeHandle($event)"
+>
+  <form [formGroup]="roomForm" (ngSubmit)="saveRoom()">
+    <text-input
+      label="Sala"
+      [error]="errorRoom"
+      formControlName="new_room"
+      type="number"
+    ></text-input>
+    <text-input
+      label="Capacidad maxima"
+      [error]="errorCapacity"
+      formControlName="new_max_capacity"
+      type="number"
+    ></text-input>
+    <text-input
+      label="Ocupacion"
+      [error]="errorOccupation"
+      formControlName="new_occupation"
+      type="number"
+      iconSrc="assets/img/percent.svg"
+    ></text-input>
+
+    <button-custom label="Añadir sala" type="submit"></button-custom>
+  </form>
+</dialog-custom>

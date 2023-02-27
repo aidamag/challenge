@@ -1,0 +1,37 @@
+[
+  {
+    "floor": 1,
+    "rooms": [
+      {
+        "room": 1,
+        "max_capacity": 30,
+        "occupation": 40
+      },
+      {
+        "room": 2,
+        "max_capacity": 30,
+        "occupation": 40
+      },
+      {
+        "room": 3,
+        "max_capacity": 30,
+        "occupation": 40
+      }
+    ]
+  },
+  {
+    "floor": 2,
+    "rooms": [
+      {
+        "room": 1,
+        "max_capacity": 30,
+        "occupation": 40
+      },
+      {
+        "room": 2,
+        "max_capacity": 30,
+        "occupation": 40
+      }
+    ]
+  }
+]

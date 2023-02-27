@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="select-btn" (click)="handleMenu()" tabindex="0">
+    <span>{{ selectedOption.label }}</span>
+    <span class="icon-expand">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="20"
+        viewBox="0 96 960 960"
+        width="20"
+      >
+        <path d="M480 723 240 483l51-51 189 189 189-189 51 51-240 240Z" />
+      </svg>
+    </span>
+  </div>
+  <div *ngIf="openMenu" class="menu">
+    <ng-container *ngFor="let item of value">
+      <option value="{{ item.value }}" (click)="selectOption($event)">
+        {{ item.label }}
+      </option>
+    </ng-container>
+  </div>
+</div>

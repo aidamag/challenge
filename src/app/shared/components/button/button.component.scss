@@ -1,0 +1,22 @@
+button{
+    height: 40px;
+    padding: 10px 30px;
+    color: #fff;
+    background-color: var(--primary-color);
+    border: 1px solid transparent;
+    border-radius: 12px;
+
+    &:hover{
+        background-color: #2e344dc7;
+        cursor: pointer;
+    }
+
+    &:focus{
+        outline: var(--focus-color) auto 1px;
+    }
+
+    &:active{
+        color: var(--primary-color);
+        background-color:var(--secundary-color);
+    }
+}

@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="overlay"></div>
+  <div class="content">
+    <div class="icon-close" (click)="onCloseHandle()" tabindex="0">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24"
+        viewBox="0 96 960 960"
+        width="24"
+      >
+        <path
+          d="m256 856-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+        />
+      </svg>
+    </div>
+    <div class="children">
+      <h1>{{ label }}</h1>
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

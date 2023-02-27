@@ -1,0 +1,33 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: var(--secundary-color);
+    border-radius: 26px;
+}
+
+.icon{
+    width: 24px;
+    height: 24px;
+    align-self: end;
+    cursor: pointer;
+    border-radius: 5px;
+
+    &:focus{
+        outline: #4C9AFF auto 1px;
+    }
+
+    &:hover{
+        background-color: #dee9fe;;
+    }
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+    card-action{
+        align-self: flex-end;
+    }
+}

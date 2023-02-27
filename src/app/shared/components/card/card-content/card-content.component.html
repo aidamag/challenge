@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <text-input
+    label="Capacidad maxima"
+    value="{{ max_capacity }}"
+    formControlName="update_capacity"
+    type="number"
+  ></text-input>
+  <text-input
+    label="Ocupacion"
+    value="{{ occupation }}"
+    iconSrc="assets/img/percent.svg"
+    formControlName="update_occupation"
+    [error]="errorOccupation"
+    type="number"
+  ></text-input>
+  <button-custom label="Modificar" type="submit"></button-custom>
+</form>

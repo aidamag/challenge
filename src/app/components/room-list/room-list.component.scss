@@ -1,0 +1,44 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin: 50px;
+}
+
+.divider{
+    width: 100%;
+    border: 1px solid var(--secundary-color);
+}
+
+.floor-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border: 2px solid #2E344Ded;
+    border-radius: 26px;
+}
+
+.title{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.title-actions{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cards{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+select-custom{
+    width: fit-content;
+}

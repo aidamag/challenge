@@ -1,0 +1,54 @@
+<div class="container">
+  <h1>Salas</h1>
+
+  <select-custom
+    [value]="floors"
+    (onClick)="onClickOption($event)"
+  ></select-custom>
+
+  <div class="divider"></div>
+
+  <div class="floor-container">
+    <div class="title">
+      <h3>Planta {{ floorSelected.floor }}</h3>
+      <div class="title-actions">
+        <button-custom
+          label="Filtro"
+          (onClick)="handleFilterDialog($event)"
+        ></button-custom>
+        <button-custom
+          label="Añadir sala"
+          (onClick)="handleDialog($event)"
+        ></button-custom>
+      </div>
+    </div>
+    <div class="cards">
+      <ng-container
+        *ngFor="let room of floorSelected.rooms | filterRoom : filters"
+      >
+        <card (onDelete)="deleteRoom(room.room)">
+          <card-title label="Sala {{ room.room }}"></card-title>
+          <card-content
+            max_capacity="{{ room.max_capacity }}"
+            occupation="{{ room.occupation }}"
+            (onClick)="updateRoom(room.room, $event)"
+          >
+          </card-content>
+        </card>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<room-form
+  [floor]="floorSelected.floor"
+  [isDialogOpen]="isDialogOpen"
+  (onSave)="saveRoom($event)"
+  (onClose)="handleDialog($event)"
+></room-form>
+
+<room-filter
+  [isFilterOpen]="isFilterOpen"
+  (onFilter)="filterRoom($event)"
+  (onClose)="handleFilterDialog($event)"
+></room-filter>

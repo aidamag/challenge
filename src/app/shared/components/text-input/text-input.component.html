@@ -1,0 +1,14 @@
+<div class="container">
+  <label for="input" *ngIf="label">{{ label }}</label>
+  <div class="input-container">
+    <input
+      name="input"
+      [type]="type"
+      [value]="renderedValue"
+      (input)="onChange($any($event.target).value)"
+      [placeholder]="placeholder"
+    />
+    <img *ngIf="icon" src="{{ iconSrc }}" class="icon" />
+  </div>
+  <span *ngIf="error" class="error">{{ error }}</span>
+</div>

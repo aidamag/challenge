@@ -1,0 +1,53 @@
+<dialog-custom
+  *ngIf="isFilterOpen"
+  label="Filtrar sala"
+  (onClose)="closeHandle($event)"
+>
+  <form [formGroup]="filterForm" (ngSubmit)="filterHandle()">
+    <div>
+      <h3>Por capacidad maxima</h3>
+      <div class="container-input">
+        <span>De</span>
+        <text-input
+          type="number"
+          placeholder="Min"
+          formControlName="min_capacity"
+          [value]="min_capacity_value"
+        ></text-input>
+        <span>a</span>
+        <text-input
+          type="number"
+          placeholder="Max"
+          formControlName="max_capacity"
+          [value]="max_capacity_value"
+        ></text-input>
+      </div>
+    </div>
+
+    <div>
+      <h3>Por ocupacion</h3>
+      <div class="container-input">
+        <span>De</span>
+        <text-input
+          type="number"
+          placeholder="Min"
+          formControlName="min_occupation"
+          iconSrc="assets/img/percent.svg"
+          [error]="errorMinOccupation"
+          [value]="min_ocuppation_value"
+        ></text-input>
+        <span>a</span>
+        <text-input
+          type="number"
+          placeholder="Max"
+          formControlName="max_occupation"
+          iconSrc="assets/img/percent.svg"
+          [error]="errorMaxOccupation"
+          [value]="max_ocuppation_value"
+        ></text-input>
+      </div>
+    </div>
+
+    <button-custom label="Filtrar" type="submit"></button-custom>
+  </form>
+</dialog-custom>
